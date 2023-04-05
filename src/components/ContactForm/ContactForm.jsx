@@ -1,13 +1,18 @@
 import React from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Label, Form, Input, Button } from './ContactForm.styled';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/operations';
-import { selectContacts } from 'redux/selectors';
+import { useGetContactsQuery } from 'redux/contactsSlice';
+import { useAddContactMutation } from 'redux/contactsSlice';
 
 export const ContactForm = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
+  // const dispatch = useDispatch();
+  const { data: contacts } = useGetContactsQuery();
+
+  console.log(contacts);
+  const [add] = useAddContactMutation();
+  if (!contacts) {
+    return;
+  }
   const contactsName = contacts.map(contact => contact.name);
 
   const handleSubmit = e => {
@@ -21,7 +26,7 @@ export const ContactForm = () => {
       reset();
       return;
     }
-    dispatch(addContact({ name: name.value, phone: number.value }));
+    add({ name: name.value, number: number.value });
     reset();
   };
 
