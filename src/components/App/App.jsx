@@ -1,10 +1,8 @@
 import { AppBar } from 'components/AppBar/AppBar';
 import { Home } from 'components/Home/Home';
-import { AuthNav } from 'components/AuthNav/AuthNav';
 import { Contacts } from 'components/Contacts/Contacts';
-import { UserMenu } from 'components/UserMenu/UserMenu';
 import { Login } from 'pages/Login';
-import { Routes, Route, NavLink, Outlet, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Register } from 'pages/Register';
 import { useDispatch } from 'react-redux';
 import { refreshUser } from 'redux/auth/auth-operations';
