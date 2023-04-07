@@ -7,6 +7,8 @@ import { Register } from 'pages/Register';
 import { useDispatch } from 'react-redux';
 import { refreshUser } from 'redux/auth/auth-operations';
 import { useEffect } from 'react';
+import { PrivatRoute } from 'components/Routes/PrivatRoute';
+import { RestrictedRoute } from 'components/Routes/RestrictedRoute';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -20,9 +22,27 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<AppBar />}>
           <Route index element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/contacts" element={<Contacts />} />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute redirectTo="/contacts" component={<Login />} />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<Register />}
+              />
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PrivatRoute redirectTo="/login" component={<Contacts />} />
+            }
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

@@ -20,7 +20,12 @@ export const Contacts = () => {
         <ContactForm />
       </div>
       <div>
-        {data && data.length > 0 && <Filter /> && <Title>Contacts</Title>}
+        {data && data.length > 0 && (
+          <>
+            <Filter />
+            <Title>Contacts</Title>
+          </>
+        )}
         <ContactList>
           <ContactItem />
         </ContactList>

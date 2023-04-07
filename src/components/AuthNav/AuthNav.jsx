@@ -1,24 +1,22 @@
+import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
+import { AuthConteiner } from './AuthNav.styled';
+
+const StyledLink = styled(NavLink)`
+  color: black;
+  text-decoration: none;
+
+  &.active {
+    color: orange;
+    text-decoration: none;
+  }
+`;
+
 export const AuthNav = () => {
   return (
-    <div>
-      <form>
-        <label>
-          Name
-          <input type="text" name="name" />
-        </label>
-        <br />
-        <label>
-          Email
-          <input type="email" name="email" />
-        </label>
-        <br />
-        <label>
-          Password
-          <input type="password" name="password" />
-        </label>
-        <br />
-        <button type="submit">Login</button>
-      </form>
-    </div>
+    <AuthConteiner>
+      <StyledLink to="/login">Login</StyledLink>
+      <StyledLink to="/register">Signup</StyledLink>
+    </AuthConteiner>
   );
 };

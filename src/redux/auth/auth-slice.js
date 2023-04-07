@@ -25,7 +25,7 @@ export const authSlice = createSlice({
     },
     [refreshUser.fulfilled]: (state, action) => {
       state.user = action.payload;
-      // state.isLoggedIn = true;
+      state.isLoggedIn = true;
     },
     [logOutUser.fulfilled]: (state) => {
       state.user = null;

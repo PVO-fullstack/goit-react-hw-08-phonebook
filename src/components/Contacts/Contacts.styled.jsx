@@ -11,7 +11,7 @@ export const Header = styled.h1`
 
 export const Title = styled.h2`
   font-size: 20px;
-  color: green;
+  color: #6df5aa;
   margin: 20px 0;
   text-align: center;
 `;
