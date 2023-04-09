@@ -1,8 +1,12 @@
+import { Title, Description } from './Home.styled';
+
 export const Home = () => {
   return (
     <div>
-      <h1>Welcome to service TelefoneBook!</h1>
-      <p>You can do you personal telefonebook and edjoi it.</p>
+      <Title>Welcome to service TelefoneBook!</Title>
+      <Description>
+        You can do your personal telefonebook and edjoy it.
+      </Description>
     </div>
   );
 };

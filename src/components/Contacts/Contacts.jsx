@@ -4,16 +4,17 @@ import { Filter } from '../Filter/Filter';
 import { ContactList } from '../ContactList/ContactList';
 import { ContactItem } from '../ContactItem/ContactItem';
 import { Conteiner, Header, Title } from './Contacts.styled';
-// import { selectContacts } from 'redux/selectors';
-// import { useSelector } from 'react-redux';
-import { useGetContactsQuery } from 'redux/contactsSlice';
+import { useSelector } from 'react-redux';
+import { useGetContactsQuery } from 'redux/contacts/contactsSlice';
+import { selectIsRefresh } from 'redux/auth/auth-selectors';
 
 export const Contacts = () => {
-  // const token = useSelector(state => state.auth.token);
-
+  const isRefresh = useSelector(selectIsRefresh);
   const { data } = useGetContactsQuery();
 
-  return (
+  return isRefresh ? (
+    'Contacts is refresh...'
+  ) : (
     <Conteiner>
       <div>
         <Header>Phonebook</Header>

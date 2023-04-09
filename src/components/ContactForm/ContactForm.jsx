@@ -1,14 +1,12 @@
 import React from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Label, Form, Input, Button } from './ContactForm.styled';
-import { useGetContactsQuery } from 'redux/contactsSlice';
-import { useAddContactMutation } from 'redux/contactsSlice';
+import { useGetContactsQuery } from 'redux/contacts/contactsSlice';
+import { useAddContactMutation } from 'redux/contacts/contactsSlice';
 
 export const ContactForm = () => {
-  // const dispatch = useDispatch();
   const { data: contacts } = useGetContactsQuery();
 
-  console.log(contacts);
   const [add] = useAddContactMutation();
   if (!contacts) {
     return;

@@ -15,8 +15,8 @@ const StyledLink = styled(NavLink)`
 export const AuthNav = () => {
   return (
     <AuthConteiner>
-      <StyledLink to="/login">Login</StyledLink>
-      <StyledLink to="/register">Signup</StyledLink>
+      <StyledLink to="/login">Log in</StyledLink>
+      <StyledLink to="/register">Sign up</StyledLink>
     </AuthConteiner>
   );
 };

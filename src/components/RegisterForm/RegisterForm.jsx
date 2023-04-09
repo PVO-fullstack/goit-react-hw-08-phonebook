@@ -1,18 +1,19 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from 'redux/auth/auth-operations';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { selectIsRefresh } from 'redux/auth/auth-selectors';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
+  const isRefresh = useSelector(selectIsRefresh);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -24,9 +25,10 @@ export const RegisterForm = () => {
     <Navigate to="/contacts" />;
   };
 
-  return (
+  return isRefresh ? (
+    'Refresh contacts...'
+  ) : (
     <div>
-      {/* <ThemeProvider theme={theme}> */}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -40,12 +42,12 @@ export const RegisterForm = () => {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" validate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   color="info"
-                  autoComplete="given-name"
+                  autoComplete="off"
                   name="name"
                   required
                   fullWidth
@@ -61,7 +63,7 @@ export const RegisterForm = () => {
                   id="email"
                   label="Email"
                   name="email"
-                  autoComplete="email"
+                  autoComplete="off"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -72,7 +74,7 @@ export const RegisterForm = () => {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
+                  autoComplete="off"
                 />
               </Grid>
             </Grid>
@@ -86,7 +88,7 @@ export const RegisterForm = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" variant="body2">
+                <Link to="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -94,7 +96,6 @@ export const RegisterForm = () => {
           </Box>
         </Box>
       </Container>
-      {/* </ThemeProvider> */}
     </div>
   );
 };

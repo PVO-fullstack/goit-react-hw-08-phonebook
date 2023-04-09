@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { logInUser } from 'redux/auth/auth-operations';
 import * as React from 'react';
@@ -9,9 +9,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { selectIsRefresh } from 'redux/auth/auth-selectors';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
+  const isRefresh = useSelector(selectIsRefresh);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -22,7 +24,9 @@ export const LoginForm = () => {
     <Navigate to="/contacts" />;
   };
 
-  return (
+  return isRefresh ? (
+    'Refresh contacts...'
+  ) : (
     <>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -35,9 +39,9 @@ export const LoginForm = () => {
           }}
         >
           <Typography component="h1" variant="h5">
-            Sign up
+            Log in
           </Typography>
-          <Box component="form" validate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -46,7 +50,7 @@ export const LoginForm = () => {
                   id="email"
                   label="Email"
                   name="email"
-                  // autoComplete="email"
+                  autoComplete="off"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -57,7 +61,7 @@ export const LoginForm = () => {
                   label="Password"
                   type="password"
                   id="password"
-                  // autoComplete="new-password"
+                  autoComplete="off"
                 />
               </Grid>
             </Grid>

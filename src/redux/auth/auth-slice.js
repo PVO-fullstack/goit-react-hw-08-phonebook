@@ -5,6 +5,7 @@ const initialState = {
   user: { name: null, password: null },
   token: null,
   isLoggedIn: false,
+  isRefresh: false,
 };
 
 const userIn = (state, action) => {
@@ -16,49 +17,27 @@ const userIn = (state, action) => {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  extraReducers: {
-    [registerUser.fulfilled]: (state, action) => {
+  extraReducers: builder => builder
+    .addCase(registerUser.fulfilled, (state, action) => {
+    userIn(state, action)
+    })
+    .addCase(logInUser.fulfilled, (state, action) => {
       userIn(state, action);
-    },
-    [logInUser.fulfilled]: (state, action) => {
-      userIn(state, action);
-    },
-    [refreshUser.fulfilled]: (state, action) => {
+    })
+    .addCase(refreshUser.pending, (state, action) => {
+      state.isRefresh = true;
+    })
+    .addCase(refreshUser.fulfilled, (state, action) => {
       state.user = action.payload;
       state.isLoggedIn = true;
-    },
-    [logOutUser.fulfilled]: (state) => {
+      state.isRefresh = false;
+    })
+    .addCase(refreshUser.rejected, (state) => {
+      state.isRefresh = false;
+    })
+    .addCase(logOutUser.fulfilled, (state) => {
       state.user = null;
       state.token = null;
       state.isLoggedIn = false;
-    },
-  },
+    })
 })
-
-// export default authSlice.reducer
-
-
-
-
-
-// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
-// export const authApi = createApi({
-//   reducerPath: 'authApi',
-//   baseQuery: fetchBaseQuery({ baseUrl: 'https://connections-api.herokuapp.com' }),
-//   tagTypes: ['Users'],
-//   endpoints: (builder) => ({
-//     register: builder.mutation({
-//       query: credentials => ({
-//         url: '/users/signup',
-//         method: 'POST',
-//         body: credentials,
-//       }),
-//       // transformResponse: (response) => response.data,
-//       invalidatesTags: ['Users'],
-//     }),
-//   }),
-// })
-
-// export const { useRegisterMutation } = authApi
-

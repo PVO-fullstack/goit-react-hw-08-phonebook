@@ -1,16 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectFilter } from 'redux/selectors';
+import { selectFilter } from 'redux/contacts/selectors';
 import { Button, Li, Span } from './ContactItem.styled';
-// import { deleteContact } from 'redux/operations';
-import { useGetContactsQuery } from 'redux/contactsSlice';
-import { useDeleteContactMutation } from 'redux/contactsSlice';
+import { useGetContactsQuery } from 'redux/contacts/contactsSlice';
+import { useDeleteContactMutation } from 'redux/contacts/contactsSlice';
 
 export const ContactItem = () => {
-  // const contactList = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
-  // const dispatch = useDispatch();
   const { data } = useGetContactsQuery();
   const [deleteContact] = useDeleteContactMutation();
 
@@ -23,7 +20,6 @@ export const ContactItem = () => {
     contact.name.toLowerCase().includes(normalaizeFilter)
   );
 
-  // return <div>qqqqqq</div>;
   return visibleContacts.map(contact => (
     <Li key={contact.id}>
       <Span>{contact.name}: </Span>
