@@ -4,9 +4,10 @@ import { logOutUser } from 'redux/auth/auth-operations';
 import { Welcome } from '../UserMenu/UserMenu.styled';
 import { UserMenuConteiner } from '../UserMenu/UserMenu.styled';
 import { Button } from '../UserMenu/UserMenu.styled';
+import { selectUserName } from 'redux/auth/auth-selectors';
 
 export const UserMenu = () => {
-  const name = useSelector(state => state.auth.user.name);
+  const name = useSelector(selectUserName);
   const dispatch = useDispatch();
 
   return (
