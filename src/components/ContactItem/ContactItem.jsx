@@ -1,30 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-
-import { selectFilter } from 'redux/contacts/selectors';
-import { Button, Li, Span } from './ContactItem.styled';
-import { useGetContactsQuery } from 'redux/contacts/contactsSlice';
+import { Button, Span } from './ContactItem.styled';
 import { useDeleteContactMutation } from 'redux/contacts/contactsSlice';
 
-export const ContactItem = () => {
-  const filter = useSelector(selectFilter);
-  const { data } = useGetContactsQuery();
+export const ContactItem = ({ id, name, number }) => {
   const [deleteContact] = useDeleteContactMutation();
 
-  const normalaizeFilter = filter.toLowerCase();
-
-  if (!data) {
-    return;
-  }
-  const visibleContacts = data.filter(contact =>
-    contact.name.toLowerCase().includes(normalaizeFilter)
+  return (
+    <>
+      <Span>{name}: </Span>
+      <Span>{number}</Span>
+      <Button onClick={() => deleteContact(id)}>Delete</Button>
+    </>
   );
-
-  return visibleContacts.map(contact => (
-    <Li key={contact.id}>
-      <Span>{contact.name}: </Span>
-      <Span>{contact.number}</Span>
-      <Button onClick={() => deleteContact(contact.id)}>Delete</Button>
-    </Li>
-  ));
 };
